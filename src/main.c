@@ -27,6 +27,9 @@ typedef enum {			/* Define um tipo para verdadeiro e falso */
 unsigned long int *numeros;	/* Vetor de numeros a serem  analisados */
 int *contador;	                /* Conta quantos numeros sao primos */
 
+/*============================================================================*/
+/*= Funcoes                                                                  =*/
+/*============================================================================*/
 
 int ler_entrada(void) {
 /*============================================================================*/
@@ -111,7 +114,6 @@ bool primo(unsigned long int n) {
     }
 }
 
-
 int init_contador(void){
 /*============================================================================*/
 /*=  Inicializa a variavel contadora compartilhada na memoria                =*/
@@ -123,15 +125,14 @@ int init_contador(void){
 
     /* Criacao da area de memoria compartilhada */
 
-    contador = (int*) mmap(NULL, sizeof(int),
-				   protection, visibility, 0, 0);
+    contador = (int*) mmap(NULL, sizeof(int), protection, visibility, 0, 0);
 
-    if ((int)*contador==-1) {
+    if ((int)*contador==-1) {	/* Verifica se ha erro */
 	 printf("Erro de alocacao!\n");
 	return(-1);
 
     } else {
-	*contador = 0;
+	*contador = 0;		/* Inicializa a variavel */
 	return(0);
     }
 }

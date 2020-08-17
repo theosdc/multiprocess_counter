@@ -24,7 +24,7 @@ typedef enum {			/* Define um tipo para verdadeiro e falso */
 /*= Variaveis globais                                                        =*/
 /*============================================================================*/
 
-unsigned long int *numeros;	/* Vetor de numeros a serem  analisados */
+unsigned long long int *numeros;	/* Vetor de numeros a serem  analisados */
 int *contador;	                /* Conta quantos numeros sao primos */
 
 /*============================================================================*/
@@ -43,14 +43,14 @@ int ler_entrada(void) {
 
     /* Leitura da entrada padrao -------------------------------------------- */
 
-    unsigned long int *dados;       	/* Aloca memoria para o vetor de dados*/
-    dados = (unsigned long int*) malloc (sizeof(unsigned long int)*MAX);
+    unsigned long long int *dados;       	/* Aloca memoria para o vetor de dados*/
+    dados = (unsigned long long int*) malloc (sizeof(unsigned long long int)*MAX);
 
     int i = 0;
     char aux;
 
     do {			/* Gera um vetor com os numeros da entrada */
-	scanf("%ld%c", &dados[i], &aux);
+	scanf("%lld%c", &dados[i], &aux);
 	i++;
     }while(aux != '\n');
 
@@ -63,7 +63,7 @@ int ler_entrada(void) {
     /* Criacao da area de memoria compartilhada */
     /* Note que 'i' eh o numero de elemetos do vetor */
 
-    numeros = (unsigned long int*) mmap(NULL, sizeof(unsigned long int)*i,
+    numeros = (unsigned long long int*) mmap(NULL, sizeof(unsigned long long int)*i,
 				   protection, visibility, 0, 0);
 
     if ((long int)numeros==-1) { /* Verifica se ocorreu erro */
@@ -83,7 +83,7 @@ int ler_entrada(void) {
     }
 }
 
-bool primo(unsigned long int n) {
+bool primo(unsigned long long int n) {
 /*============================================================================*/
 /*= Teste de primalidade com otimizacao  6k+-1                               =*/
 /*= Disponivel em: <https://en.wikipedia.org/wiki/Primality_test>            =*/
@@ -100,7 +100,7 @@ bool primo(unsigned long int n) {
 	return(FALSE);				/* 2 ou por 3 */
 
     } else {
-	unsigned long int i = 5;
+	unsigned long long int i = 5;
 
 	while (i*i <= n) {	/* Otimização 6k+1 */
 	    if ((n % i == 0) || (n % (i+2) == 0)) {
@@ -151,7 +151,7 @@ void filho(int i, int elementos) {
 /*============================================================================*/
     int j = 0;
     int p;
-
+    
     while ((p = 4*j+i) < elementos) {
 
 	if(primo(numeros[p]) == TRUE) {
